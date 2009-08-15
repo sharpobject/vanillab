@@ -2,6 +2,7 @@
 #pragma comment( lib, "Winmm.lib" )
 
 #include "setup.h"
+#include "sprites.h"
 
 IDirect3DDevice9* gDevice = 0;
 int gWidth  = 1024;
