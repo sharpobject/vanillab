@@ -178,6 +178,10 @@
 				RelativePath=".\setup.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\spriteman.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -186,6 +190,14 @@
 			>
 			<File
 				RelativePath=".\setup.h"
+				>
+			</File>
+			<File
+				RelativePath=".\spriteman.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sprites.h"
 				>
 			</File>
 		</Filter>
