@@ -4,6 +4,8 @@
 #include <d3dx9.h>
 #include <string>
 
+#define TEXTURE_SZ (256.0f)
+
 bool Setup(
 	HINSTANCE hInstance,
 	int width, int height,

@@ -1,8 +1,11 @@
-#include "setup.h"
 #include <windowsx.h>
+
+#include "setup.h"
+#include "spriteman.h"
 
 extern int gHeight;
 extern int gWidth;
+extern SpriteMan *gSpriteMan;
 
 bool Setup(
 	HINSTANCE hInstance,
@@ -90,7 +93,7 @@ bool Setup(
 	d3dpp.AutoDepthStencilFormat     = D3DFMT_D24S8;
 	d3dpp.Flags                      = 0;
 	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
-	d3dpp.PresentationInterval       = D3DPRESENT_INTERVAL_DEFAULT;
+	d3dpp.PresentationInterval       = D3DPRESENT_INTERVAL_ONE;
 
 	hr = d3d9->CreateDevice(
 		D3DADAPTER_DEFAULT,
@@ -106,6 +109,9 @@ bool Setup(
 		return false;
 	}
 	d3d9->Release();
+
+	gSpriteMan = new SpriteMan();
+
 	return true;
 }
 
