@@ -5,7 +5,8 @@ enum SpriteName {SPR_MED_CIR_BULLET,
 				SPR_ARROW,
 				N_SPRITES};
 
-const char gSpriteFiles[N_SPRITES][50]={"textures/medium_circle_bullet.png",
-										"textures/arrow.png"};
+const char gSpriteFiles[N_SPRITES][60]={"textures/medium_circle_bullet.png",
+										"textures/arrow.png",
+										};
 
 #endif // __SpritesH__

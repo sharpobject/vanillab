@@ -37,7 +37,8 @@ void SpriteMan::end()
 	m_sprite->End();
 }
 
-void SpriteMan::draw(SpriteName spritename, float x, float y, float xscale, float yscale, float rotation, BOOL fromCenter)
+void SpriteMan::draw(SpriteName spritename, float x, float y, float xscale, float yscale,
+					 float rotation, D3DCOLOR color, BOOL fromCenter)
 {
 	D3DXVECTOR2 trans=D3DXVECTOR2(x,y);
 	D3DXVECTOR2 center=D3DXVECTOR2(xscale*m_centers[spritename].x,yscale*m_centers[spritename].y);
@@ -47,5 +48,5 @@ void SpriteMan::draw(SpriteName spritename, float x, float y, float xscale, floa
 	D3DXMATRIX mat;
 	D3DXMatrixTransformation2D(&mat,NULL,0.0,&scaling,&center,rotation,&trans);
 	m_sprite->SetTransform(&mat);
-	m_sprite->Draw(m_textures[spritename],NULL,NULL,NULL,0xFFFFFFFF);
+	m_sprite->Draw(m_textures[spritename],NULL,NULL,NULL,color);
 }

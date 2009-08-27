@@ -175,6 +175,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\object.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\objman.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\setup.cpp"
 				>
 			</File>
@@ -189,7 +197,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\defines.h"
+				RelativePath=".\object.h"
+				>
+			</File>
+			<File
+				RelativePath=".\objman.h"
 				>
 			</File>
 			<File
@@ -202,6 +214,10 @@
 			</File>
 			<File
 				RelativePath=".\sprites.h"
+				>
+			</File>
+			<File
+				RelativePath=".\util.h"
 				>
 			</File>
 		</Filter>

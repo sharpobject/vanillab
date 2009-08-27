@@ -1,11 +1,16 @@
+#pragma once
+
 #include <windowsx.h>
 
+#include "util.h"
 #include "setup.h"
 #include "spriteman.h"
+#include "objman.h"
 
 extern int gHeight;
 extern int gWidth;
 extern SpriteMan *gSpriteMan;
+extern ObjMan *gObjMan;
 
 bool Setup(
 	HINSTANCE hInstance,
@@ -111,6 +116,8 @@ bool Setup(
 	d3d9->Release();
 
 	gSpriteMan = new SpriteMan();
+	gObjMan = new ObjMan();
+	gObjMan -> makedude();
 
 	return true;
 }
