@@ -58,9 +58,9 @@ void Object::run()
 				newguy.speed=1.0f;
 				newguy.sprite=SPR_MED_CIR_BULLET;
 				gObjMan->add(newguy);
-				newguy.direction+=PI*2/3;
+				newguy.direction+=FULL_CIRCLE/3;
 				gObjMan->add(newguy);
-				newguy.direction+=PI*2/3;
+				newguy.direction+=FULL_CIRCLE/3;
 				gObjMan->add(newguy);
 			}
 			break;

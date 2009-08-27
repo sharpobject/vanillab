@@ -1,4 +1,5 @@
 #include "objman.h"
+#include "util.h"
 
 using namespace std;
 
@@ -32,6 +33,6 @@ void ObjMan::add(Object o)
 
 void ObjMan::makedude()
 {
-	Object o(1024.0f/2.0f,768.0f/2.0f,0.0f,0.0f,SPR_ARROW);
+	Object o(1024.0f/2.0f,768.0f/2.0f,FACING_UP,0.0f,SPR_ARROW);
 	add(o);
 }
