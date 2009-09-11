@@ -16,15 +16,21 @@ SpriteMan::SpriteMan()
 		m_textures[i]->GetLevelDesc(0, &surfaceDesc);
 		m_centers[i]=D3DXVECTOR2(surfaceDesc.Width/2.0f,surfaceDesc.Height/2.0f);
 	}
+	if(FAILED(D3DXCreateFont( gDevice, 10, 0, FW_BOLD, 0, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, TEXT("Lucida Console"), &m_font)))
+		MessageBox(0,"D3DXCreateFont() - FAILED",0,0);
+	m_textrect.bottom=768-4;
+	m_textrect.top=4;
+	m_textrect.left=4;
+	m_textrect.right=1024-4;
 }
 
 SpriteMan::~SpriteMan()
 {
-	m_sprite->Release();
 	for(int i=0;i<N_SPRITES;i++)
 	{
 		m_textures[i]->Release();
 	}
+	m_sprite->Release();
 }
 
 void SpriteMan::begin()
@@ -40,13 +46,26 @@ void SpriteMan::end()
 void SpriteMan::draw(SpriteName spritename, float x, float y, float xscale, float yscale,
 					 float rotation, D3DCOLOR color, BOOL fromCenter)
 {
-	D3DXVECTOR2 trans=D3DXVECTOR2(x,y);
-	D3DXVECTOR2 center=D3DXVECTOR2(xscale*m_centers[spritename].x,yscale*m_centers[spritename].y);
+	D3DXVECTOR2 trans(x,y);
+	D3DXVECTOR2 center(xscale*m_centers[spritename].x,yscale*m_centers[spritename].y);
 	if(fromCenter)
-		trans-=center;
-	D3DXVECTOR2 scaling=D3DXVECTOR2(xscale,yscale);
+		trans=trans - center;
+	D3DXVECTOR2 scaling(xscale,yscale);
 	D3DXMATRIX mat;
 	D3DXMatrixTransformation2D(&mat,NULL,0.0,&scaling,&center,rotation,&trans);
 	m_sprite->SetTransform(&mat);
 	m_sprite->Draw(m_textures[spritename],NULL,NULL,NULL,color);
+}
+
+void SpriteMan::drawFPS(string s)
+{
+	D3DXMATRIX mat;
+	for(int i=0;i<4;i++)
+		for(int j=0;j<4;j++)
+			if(i==j)
+				mat.m[i][j]=1;
+			else
+				mat.m[i][j]=0;
+	m_sprite->SetTransform(&mat);
+	m_font->DrawText(m_sprite,s.c_str(),s.size(),&m_textrect,DT_RIGHT|DT_BOTTOM,0xffffffff);
 }

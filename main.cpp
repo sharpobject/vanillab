@@ -1,7 +1,13 @@
 #pragma comment( lib, "d3d9.lib" )
 #pragma comment( lib, "Winmm.lib" )
+#pragma comment( lib, "dxguid.lib" )
+#pragma comment( lib, "dinput8.lib" )
 
 #include "util.h"
+#include <sstream>
+#include <dinput.h>
+#include <windows.h>
+#include <winbase.h>
 #include "setup.h"
 #include "sprites.h"
 #include "spriteman.h"
@@ -10,16 +16,44 @@
 using namespace std;
 
 LPDIRECT3DDEVICE9 gDevice = 0;
+LPDIRECTINPUT8 gDI = 0;
+LPDIRECTINPUTDEVICE8 gKeyboard = 0;
 int gWidth  = 1024;
 int gHeight = 768;
 SpriteMan *gSpriteMan = 0;
 ObjMan *gObjMan = 0;
+int gFrameTimes[FPS_UPDATE_FREQ];
+int gFTidx;
+float gFPS=0.0;
+int gnObjects=0;
 
-bool Display(int timeDelta)
+bool Display(int time,int prevtime)
 {
 	if( gDevice )
 	{
-		gObjMan->run();
+		if(FAILED(gDevice->TestCooperativeLevel()))
+		{
+//			MessageBox(0,"One day you won't have your naughty bits any more.",0,0);
+			while(!resetDevice())
+				Sleep(17);
+		}
+		//POLL DA KEYBOARD YO
+		gKeyboard->Poll();
+		unsigned char keys[256];
+		gKeyboard->GetDeviceState(256,&keys);
+		//Calculate framerate and number of objects for display.
+		gFrameTimes[gFTidx]=time-prevtime;
+		gFTidx=(gFTidx+1)%FPS_UPDATE_FREQ;
+		if(gFTidx==0)
+		{
+			float sum=0;
+			for(int i=0;i<FPS_UPDATE_FREQ;i++)
+				sum+=gFrameTimes[i];
+			gFPS=FPS_UPDATE_FREQ*1000/sum;
+			gFPS=((int)(gFPS*10+.5))*.1f;
+			gnObjects=gObjMan->size();
+		}		
+		gObjMan->run((unsigned char*)&keys);
 		gDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xff3E6B2E, 1.0f, 0);
 		gDevice->BeginScene();
 		gSpriteMan->begin();
@@ -31,6 +65,9 @@ bool Display(int timeDelta)
 		//	}			
 		//for(int i=0;i<timeDelta;i++)
 		//	gSpriteMan->draw(SPR_ARROW,40+25*i,400,25/TEXTURE_SZ,25/TEXTURE_SZ,PI*i/4);
+		stringstream sout;
+		sout<<gFPS<<"     FPS\n"<<gnObjects<<" Objects";
+		gSpriteMan->drawFPS(sout.str());
 		gSpriteMan->end();
 		gDevice->EndScene();
 		gDevice->Present(0, 0, 0, 0);
@@ -46,10 +83,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		break;
 		
-	case WM_KEYDOWN:
-		if( wParam == VK_ESCAPE )
-			DestroyWindow(hwnd);
-		break;
+//	case WM_KEYDOWN:
+//		if( wParam == VK_ESCAPE )
+//			DestroyWindow(hwnd);
+//		break;
 	}
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }

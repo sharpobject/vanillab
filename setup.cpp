@@ -1,8 +1,8 @@
 #pragma once
 
 #include <windowsx.h>
-
 #include "util.h"
+#include <dinput.h>
 #include "setup.h"
 #include "spriteman.h"
 #include "objman.h"
@@ -11,6 +11,10 @@ extern int gHeight;
 extern int gWidth;
 extern SpriteMan *gSpriteMan;
 extern ObjMan *gObjMan;
+extern LPDIRECTINPUT8 gDI;
+extern LPDIRECTINPUTDEVICE8 gKeyboard;
+extern LPDIRECT3DDEVICE9 gDevice;
+D3DPRESENT_PARAMETERS d3dpp;
 
 bool Setup(
 	HINSTANCE hInstance,
@@ -79,12 +83,11 @@ bool Setup(
 	d3d9->GetDeviceCaps(D3DADAPTER_DEFAULT, deviceType, &caps);
 
 	int vp = 0;
-	if( caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT )
+//	if( caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT )
 		vp = D3DCREATE_HARDWARE_VERTEXPROCESSING;
-	else
-		vp = D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+//	else
+//		vp = D3DCREATE_SOFTWARE_VERTEXPROCESSING;
  
-	D3DPRESENT_PARAMETERS d3dpp;
 	d3dpp.BackBufferWidth            = width;
 	d3dpp.BackBufferHeight           = height;
 	d3dpp.BackBufferFormat           = D3DFMT_A8R8G8B8;
@@ -118,8 +121,34 @@ bool Setup(
 	gSpriteMan = new SpriteMan();
 	gObjMan = new ObjMan();
 	gObjMan -> makedude();
-
+	if(FAILED(DirectInput8Create(hInstance,DIRECTINPUT_VERSION,IID_IDirectInput8A,(LPVOID*)(&gDI),NULL)))
+	{
+		MessageBox(0, "DirectInput8Create() - FAILED", 0, 0);
+	}
+	gDI->CreateDevice(GUID_SysKeyboard, &gKeyboard, NULL);
+	gKeyboard->SetDataFormat(&c_dfDIKeyboard);
+	gKeyboard->Acquire();
 	return true;
+}
+
+bool resetDevice()
+{
+	if(gSpriteMan)
+	{
+		delete gSpriteMan;
+		gSpriteMan = 0;
+	}
+	if(SUCCEEDED(gDevice->Reset(&d3dpp)))
+	{
+//		MessageBox(0, "Oh dear sir.", 0, 0);
+		gSpriteMan=new SpriteMan();
+		return true;
+	}
+	else
+	{
+//		MessageBox(0, "Oh dear madam.", 0, 0);
+		return false;
+	}
 }
 
 int EnterMsgLoop()
@@ -139,7 +168,7 @@ int EnterMsgLoop()
 		}
 		int currTime  = timeGetTime();
 		int timeDelta = currTime - lastTime;
-		Display(timeDelta);
+		Display(currTime,lastTime);
 		lastTime = currTime;
     }
 }
