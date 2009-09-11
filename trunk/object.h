@@ -16,11 +16,14 @@ public:
 	bool isDead();
 	~Object();
 private:
+	void move();
+private:
 	float x,y,direction,speed;
 	SpriteName sprite;
 	int age;
 	bool dead;
-	void move();
+public:
+	friend class ObjMan;
 };
 
 

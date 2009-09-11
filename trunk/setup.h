@@ -13,12 +13,14 @@ bool Setup(
 
 int EnterMsgLoop();
 
-bool Display(int timeDelta);
+bool Display(int,int);
 
 LRESULT CALLBACK WndProc(
 	HWND hwnd,
 	UINT msg, 
 	WPARAM wParam,
 	LPARAM lParam);
+
+bool resetDevice();
 
 #endif // __SetupH__

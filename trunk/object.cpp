@@ -55,19 +55,21 @@ void Object::run()
 			{
 				Object newguy(*this);
 				newguy.age=0;
-				newguy.speed=1.0f;
+				newguy.speed=4.0f;
 				newguy.sprite=SPR_MED_CIR_BULLET;
 				gObjMan->add(newguy);
-				newguy.direction+=FULL_CIRCLE/3;
-				gObjMan->add(newguy);
-				newguy.direction+=FULL_CIRCLE/3;
-				gObjMan->add(newguy);
+				int npaths=16;
+				for(int i=1;i<npaths;i++)
+				{
+					newguy.direction+=FULL_CIRCLE/npaths;
+					gObjMan->add(newguy);
+				}
 			}
 			break;
-		case SPR_MED_CIR_BULLET:
-			if(age>1000)
-				dead=true;
-			break;
+	//	case SPR_MED_CIR_BULLET:
+	//		if(age>200)
+	//			dead=true;
+	//		break;
 	}
 	move();
 	age++;
@@ -75,8 +77,10 @@ void Object::run()
 
 void Object::move()
 {
-	x+=cos(direction)*speed;
-	y-=sin(direction)*speed;
+	float dx,dy;
+	getCartesian(dx,dy,speed,direction);
+	x+=dx;
+	y+=dy;
 }
 
 void Object::draw()

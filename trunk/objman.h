@@ -11,13 +11,15 @@ class ObjMan
 {
 public:
 	ObjMan();
-	void run();
+	void run(unsigned char*);
 	void draw();
 	void add(Object o);
 	void makedude();
 	~ObjMan();
+	int size();
 private:
 	list<Object> m_objects;
+	Object player;
 };
 
 
