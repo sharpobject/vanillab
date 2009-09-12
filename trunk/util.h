@@ -1,6 +1,12 @@
 #ifndef __UtilH__
 #define __UtilH__
 #include <math.h>
+extern "C"
+{
+# include "lua/src/lua.h"
+# include "lua/src/lauxlib.h"
+# include "lua/src/lualib.h"
+}
 
 #define DIRECTINPUT_VERSION 0x0800
 
@@ -26,4 +32,4 @@ inline void getCartesian(float &x,float &y,float &r, float &theta)
 	y=-r*sin(theta);
 }
 
-#endif //__UtilH__D:
+#endif //__UtilH__

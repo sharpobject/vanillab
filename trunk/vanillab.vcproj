@@ -167,6 +167,10 @@
 		</Configuration>
 	</Configurations>
 	<References>
+		<ProjectReference
+			ReferencedProjectIdentifier="{C4127A69-206D-4FDC-83DE-11F4964C12F6}"
+			RelativePathToProject=".\lua\lua.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter

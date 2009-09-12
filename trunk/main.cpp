@@ -2,6 +2,7 @@
 #pragma comment( lib, "Winmm.lib" )
 #pragma comment( lib, "dxguid.lib" )
 #pragma comment( lib, "dinput8.lib" )
+#pragma comment( lib, "Release/lua.lib" )
 
 #include "util.h"
 #include <sstream>
@@ -15,6 +16,7 @@
 
 using namespace std;
 
+lua_State *gLua = 0;
 LPDIRECT3DDEVICE9 gDevice = 0;
 LPDIRECTINPUT8 gDI = 0;
 LPDIRECTINPUTDEVICE8 gKeyboard = 0;

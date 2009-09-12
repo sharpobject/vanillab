@@ -28,7 +28,7 @@ void ObjMan::run(unsigned char* input)
 	if(input[DIK_RIGHT])
 		pdx+=1;
 	getPolar(pdx,pdy,pspeed,pdirection);
-	pspeed=min(1.0,pspeed);
+	pspeed=min(1.0f,pspeed);
 	pspeed*=4;
 	if(input[DIK_LSHIFT])
 		pspeed*=.5f;
