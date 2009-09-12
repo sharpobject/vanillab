@@ -2,7 +2,6 @@
 #pragma comment( lib, "Winmm.lib" )
 #pragma comment( lib, "dxguid.lib" )
 #pragma comment( lib, "dinput8.lib" )
-#pragma comment( lib, "Release/lua.lib" )
 
 #include "util.h"
 #include <sstream>
