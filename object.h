@@ -22,6 +22,7 @@ private:
 	SpriteName sprite;
 	int age;
 	bool dead;
+	static Object *activeObject;
 public:
 	friend class ObjMan;
 };

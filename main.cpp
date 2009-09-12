@@ -55,6 +55,9 @@ bool Display(int time,int prevtime)
 			gnObjects=gObjMan->size();
 		}		
 		gObjMan->run((unsigned char*)&keys);
+		luaL_dostring(gLua,"myvalue=myvalue+1;");
+		lua_pushstring(gLua, "myvalue");
+		lua_gettable(gLua, LUA_GLOBALSINDEX);
 		gDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xff3E6B2E, 1.0f, 0);
 		gDevice->BeginScene();
 		gSpriteMan->begin();
@@ -67,7 +70,9 @@ bool Display(int time,int prevtime)
 		//for(int i=0;i<timeDelta;i++)
 		//	gSpriteMan->draw(SPR_ARROW,40+25*i,400,25/TEXTURE_SZ,25/TEXTURE_SZ,PI*i/4);
 		stringstream sout;
+		sout<<"myvalue = "<<lua_tostring(gLua,-1)<<"\n";
 		sout<<gFPS<<"     FPS\n"<<gnObjects<<" Objects";
+		lua_pop(gLua,1);
 		gSpriteMan->drawFPS(sout.str());
 		gSpriteMan->end();
 		gDevice->EndScene();

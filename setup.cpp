@@ -130,6 +130,7 @@ bool Setup(
 	gKeyboard->SetDataFormat(&c_dfDIKeyboard);
 	gKeyboard->Acquire();
 	gLua=lua_open();
+	luaL_dostring(gLua,"myvalue = 0;");
 	return true;
 }
 
