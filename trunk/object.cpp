@@ -3,6 +3,7 @@
 #include "spriteman.h"
 #include "objman.h"
 
+extern lua_State *gLua;
 extern SpriteMan *gSpriteMan;
 extern ObjMan *gObjMan;
 
@@ -66,10 +67,10 @@ void Object::run()
 				}
 			}
 			break;
-	//	case SPR_MED_CIR_BULLET:
-	//		if(age>200)
-	//			dead=true;
-	//		break;
+		case SPR_MED_CIR_BULLET:
+			if(age>200)
+				dead=true;
+			break;
 	}
 	move();
 	age++;
