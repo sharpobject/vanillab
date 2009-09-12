@@ -14,6 +14,7 @@ extern ObjMan *gObjMan;
 extern LPDIRECTINPUT8 gDI;
 extern LPDIRECTINPUTDEVICE8 gKeyboard;
 extern LPDIRECT3DDEVICE9 gDevice;
+extern lua_State *gLua;
 D3DPRESENT_PARAMETERS d3dpp;
 
 bool Setup(
@@ -128,6 +129,7 @@ bool Setup(
 	gDI->CreateDevice(GUID_SysKeyboard, &gKeyboard, NULL);
 	gKeyboard->SetDataFormat(&c_dfDIKeyboard);
 	gKeyboard->Acquire();
+	gLua=lua_open();
 	return true;
 }
 
