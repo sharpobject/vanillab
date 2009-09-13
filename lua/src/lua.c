@@ -4,6 +4,13 @@
 ** See Copyright Notice in lua.h
 */
 
+#ifndef _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_NO_DEPRECATE
+#endif
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 
 #include <signal.h>
 #include <stdio.h>
