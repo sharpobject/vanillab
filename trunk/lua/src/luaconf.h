@@ -10,6 +10,7 @@
 
 #include <limits.h>
 #include <stddef.h>
+#include <math.h>
 
 
 /*
@@ -534,8 +535,8 @@
 #define luai_numsub(a,b)	((a)-(b))
 #define luai_nummul(a,b)	((a)*(b))
 #define luai_numdiv(a,b)	((a)/(b))
-#define luai_nummod(a,b)	((a) - floor((a)/(b))*(b))
-#define luai_numpow(a,b)	(pow(a,b))
+#define luai_nummod(a,b)	((a) - floorf(((a)/(b)))*(b))
+#define luai_numpow(a,b)	(powf(a,b))
 #define luai_numunm(a)		(-(a))
 #define luai_numeq(a,b)		((a)==(b))
 #define luai_numlt(a,b)		((a)<(b))

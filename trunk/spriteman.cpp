@@ -16,7 +16,7 @@ SpriteMan::SpriteMan()
 		m_textures[i]->GetLevelDesc(0, &surfaceDesc);
 		m_centers[i]=D3DXVECTOR2(surfaceDesc.Width/2.0f,surfaceDesc.Height/2.0f);
 	}
-	if(FAILED(D3DXCreateFont( gDevice, 10, 0, FW_BOLD, 0, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, TEXT("Lucida Console"), &m_font)))
+	if(FAILED(D3DXCreateFont( gDevice, 12, 0, FW_BOLD, 0, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, TEXT("Lucida Console"), &m_font)))
 		MessageBox(0,"D3DXCreateFont() - FAILED",0,0);
 	m_textrect.bottom=768-4;
 	m_textrect.top=4;
@@ -62,10 +62,14 @@ void SpriteMan::drawFPS(string s)
 	D3DXMATRIX mat;
 	for(int i=0;i<4;i++)
 		for(int j=0;j<4;j++)
-			if(i==j)
-				mat.m[i][j]=1;
-			else
-				mat.m[i][j]=0;
+			mat.m[i][j]=0;
+	for(int i=0;i<4;i++)
+		mat.m[i][i]=1;
 	m_sprite->SetTransform(&mat);
+	++++m_textrect.bottom;
+	++m_textrect.right;
+	m_font->DrawText(m_sprite,s.c_str(),s.size(),&m_textrect,DT_RIGHT|DT_BOTTOM,0xff000000);
+	----m_textrect.bottom;
+	--m_textrect.right;
 	m_font->DrawText(m_sprite,s.c_str(),s.size(),&m_textrect,DT_RIGHT|DT_BOTTOM,0xffffffff);
 }

@@ -58,21 +58,16 @@ bool Display(int time,int prevtime)
 		luaL_dostring(gLua,"myvalue=myvalue+1;");
 		lua_pushstring(gLua, "myvalue");
 		lua_gettable(gLua, LUA_GLOBALSINDEX);
+		stringstream sout;
+		for(int i=0;i<min(time-prevtime-17,50);i++)
+			sout<<"DONGS\n";
+		sout<<lua_tostring(gLua,-1)<<" myvalue"<<"\n";
+		sout<<gFPS<<"     FPS\n"<<gnObjects<<" Objects";
+		lua_pop(gLua,1);
 		gDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xff3E6B2E, 1.0f, 0);
 		gDevice->BeginScene();
 		gSpriteMan->begin();
 		gObjMan->draw();
-		//for(int j=-32;j<50;j++)
-		//	for(int i=0;i<100;i++)
-		//	{
-		//		gSpriteMan->draw(SPR_MED_CIR_BULLET,25*j+10*i,10*i,25/TEXTURE_SZ,25/TEXTURE_SZ,0);
-		//	}			
-		//for(int i=0;i<timeDelta;i++)
-		//	gSpriteMan->draw(SPR_ARROW,40+25*i,400,25/TEXTURE_SZ,25/TEXTURE_SZ,PI*i/4);
-		stringstream sout;
-		sout<<"myvalue = "<<lua_tostring(gLua,-1)<<"\n";
-		sout<<gFPS<<"     FPS\n"<<gnObjects<<" Objects";
-		lua_pop(gLua,1);
 		gSpriteMan->drawFPS(sout.str());
 		gSpriteMan->end();
 		gDevice->EndScene();

@@ -52,23 +52,23 @@ void Object::run()
 	{
 		case SPR_ARROW:
 			direction+=DEGREE;
-			if(age%6==0)
+			if(age%9==0)
 			{
 				Object newguy(*this);
 				newguy.age=0;
-				newguy.speed=4.0f;
+				newguy.speed=8.0f/3.0f;
 				newguy.sprite=SPR_MED_CIR_BULLET;
-				gObjMan->add(newguy);
-				int npaths=16;
-				for(int i=1;i<npaths;i++)
+			//	gObjMan->add(newguy);
+				int npaths=100;
+				for(int i=0;i<npaths;i++)
 				{
-					newguy.direction+=FULL_CIRCLE/npaths;
+					newguy.direction=FULL_CIRCLE*i/npaths;//+direction;
 					gObjMan->add(newguy);
 				}
 			}
 			break;
 		case SPR_MED_CIR_BULLET:
-			if(age>200)
+			if(age>242)
 				dead=true;
 			break;
 	}

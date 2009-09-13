@@ -209,7 +209,7 @@ static int luaB_collectgarbage (lua_State *L) {
       return 1;
     }
     default: {
-      lua_pushnumber(L, res);
+      lua_pushnumber(L, (lua_Number)res);
       return 1;
     }
   }
