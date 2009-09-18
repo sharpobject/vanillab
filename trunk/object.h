@@ -1,13 +1,15 @@
 #ifndef __ObjectH__
 #define __ObjectH__
 
+#include "util.h"
 #include "setup.h"
 #include "sprites.h"
 
 class Object
 {
 public:
-	Object(float x,float y, float direction, float speed, SpriteName sprite);
+	Object();
+	Object(float x,float y, float direction, float speed, SpriteName sprite,ObjectClass myclass);
 	Object(const Object &orig);
 	void run();
 	void draw();
@@ -22,7 +24,20 @@ private:
 	SpriteName sprite;
 	int age;
 	bool dead;
-	static Object *activeObject;
+
+	ObjectClass myclass;
+	
+	//Variables for compatibility with ported BulletML code and similar.
+	//These support accelerate, changespeed, and changedirection tags.
+	float yAccel,xAccel,accel,rotation;
+	int yAccelTurns,xAccelTurns,accelTurns,rotationTurns;
+
+
+	//Each object is (usually) its own node in an array-backed linked list.
+	//I was stoned or something.  Don't ask.
+	//Anyway, these are "pointers" to the adjacent objects.
+	//-1 means null.
+	int prev,next;
 public:
 	friend class ObjMan;
 };
