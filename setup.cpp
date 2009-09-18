@@ -17,6 +17,16 @@ extern LPDIRECT3DDEVICE9 gDevice;
 extern lua_State *gLua;
 D3DPRESENT_PARAMETERS d3dpp;
 
+bool setupLua()
+{
+	luaL_dostring(gLua, "myvalue=0" );
+	if(lua_gettop(gLua))
+	{
+		MessageBox(0, "Something is already on the stack D:", 0, 0);
+	}
+	return true;
+}
+
 bool Setup(
 	HINSTANCE hInstance,
 	int width, int height,
@@ -92,7 +102,7 @@ bool Setup(
 	d3dpp.BackBufferWidth            = width;
 	d3dpp.BackBufferHeight           = height;
 	d3dpp.BackBufferFormat           = D3DFMT_A8R8G8B8;
-	d3dpp.BackBufferCount            = 1;
+	d3dpp.BackBufferCount            = 3;
 	d3dpp.MultiSampleType            = D3DMULTISAMPLE_NONE;
 	d3dpp.MultiSampleQuality         = 0;
 	d3dpp.SwapEffect                 = D3DSWAPEFFECT_DISCARD; 
@@ -102,7 +112,7 @@ bool Setup(
 	d3dpp.AutoDepthStencilFormat     = D3DFMT_D24S8;
 	d3dpp.Flags                      = 0;
 	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
-	d3dpp.PresentationInterval       = D3DPRESENT_INTERVAL_ONE;
+	d3dpp.PresentationInterval       = D3DPRESENT_INTERVAL_ONE;//D3DPRESENT_INTERVAL_IMMEDIATE;
 
 	hr = d3d9->CreateDevice(
 		D3DADAPTER_DEFAULT,
@@ -130,7 +140,7 @@ bool Setup(
 	gKeyboard->SetDataFormat(&c_dfDIKeyboard);
 	gKeyboard->Acquire();
 	gLua=lua_open();
-	luaL_dostring(gLua,"myvalue = 0;");
+	setupLua();
 	return true;
 }
 
@@ -139,7 +149,7 @@ bool resetDevice()
 	if(gSpriteMan)
 	{
 		delete gSpriteMan;
-		gSpriteMan = 0;
+		gSpriteMan = NULL;
 	}
 	if(SUCCEEDED(gDevice->Reset(&d3dpp)))
 	{

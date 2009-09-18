@@ -8,7 +8,7 @@ SpriteMan::SpriteMan()
 {
 	if(FAILED(D3DXCreateSprite(gDevice,&m_sprite)))
 		MessageBox(0, "D3DXCreateSprite() - FAILED", 0, 0);
-	for(int i=0;i<N_SPRITES;i++)
+	for(int i=NO_SPRITE+1;i<N_SPRITES;i++)
 	{
 		if(FAILED(D3DXCreateTextureFromFile(gDevice,gSpriteFiles[i],&(m_textures[i]))))
 			MessageBox(0, "D3DXCreateTextureFromFile() - FAILED", 0, 0);
@@ -26,7 +26,7 @@ SpriteMan::SpriteMan()
 
 SpriteMan::~SpriteMan()
 {
-	for(int i=0;i<N_SPRITES;i++)
+	for(int i=NO_SPRITE+1;i<N_SPRITES;i++)
 	{
 		m_textures[i]->Release();
 	}
