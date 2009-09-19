@@ -56,7 +56,7 @@ bool Display(int time,int prevtime)
 		}		
 		gObjMan->run((unsigned char*)&keys);
 		luaL_dostring(gLua,"myvalue=myvalue+1;");
-		lua_pushstring(gLua, "myvalue");
+		lua_pushstring(gLua, "myvalues");
 		lua_gettable(gLua, LUA_GLOBALSINDEX);
 		stringstream sout;
 		for(int i=0;i<min(time-prevtime-17,50);i++)

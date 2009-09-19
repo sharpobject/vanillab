@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml/bulletml.dtd">
+
+<bulletml type="vertical"
+          xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml">
+
+<action label="top">
+<repeat> <times>600</times>
+<action>
+<fire>
+ <direction type="absolute">180</direction>
+ <speed type="relative">5</speed>
+ <bulletRef label="seed"/>
+</fire>
+<wait>40</wait>
+</action>
+</repeat>
+</action>
+
+<bullet label="seed">
+<action>
+<changeSpeed>
+ <speed>0</speed>
+ <term>30</term>
+</changeSpeed>
+<wait>30</wait>
+<fire>
+ <direction type="aim">-20</direction>
+ <bulletRef label="3way"/>
+</fire>
+<repeat> <times>2</times>
+<action>
+ <fire>
+  <direction type="sequence">20</direction>
+  <bulletRef label="3way"/>
+ </fire>
+</action>
+</repeat>
+<wait>5</wait>
+<repeat> <times>2</times>
+<action>
+ <fire>
+  <direction type="sequence">0</direction>
+  <speed type="sequence">0</speed>
+  <bulletRef label="3way"/>
+ </fire>
+ <repeat> <times>2</times>
+ <action>
+  <fire>
+   <direction type="sequence">-20</direction>
+   <speed type="sequence">0</speed>
+   <bulletRef label="3way"/>
+  </fire>
+ </action>
+ </repeat>
+ <wait>5</wait>
+ <fire>
+  <direction type="sequence">0</direction>
+  <speed type="sequence">0</speed>
+  <bulletRef label="3way"/>
+ </fire>
+ <repeat> <times>2</times>
+ <action>
+  <fire>
+   <direction type="sequence">20</direction>
+   <speed type="sequence">0</speed>
+   <bulletRef label="3way"/>
+  </fire>
+ </action>
+ </repeat>
+ <wait>5</wait>
+</action>
+</repeat>
+<vanish/>
+</action>
+</bullet>
+
+<bullet label="3way">
+<speed>5</speed>
+</bullet>
+
+</bulletml>

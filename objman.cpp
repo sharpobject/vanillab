@@ -4,6 +4,8 @@
 
 using namespace std;
 
+extern lua_State *gLua;
+
 ObjMan::ObjMan()
 {
 	for(int i=0;i<MAX_N_OBJECTS;i++)
@@ -14,6 +16,8 @@ ObjMan::ObjMan()
 	heads[PLAYER]=tails[PLAYER]=0;
 	Object player(512,700,FACING_UP,0.0,SPR_PLAYER,PLAYER);
 	objects[0]=player;
+	objects[0].id=0;
+	rank=.5f;
 }
 
 void ObjMan::draw(int idx)
@@ -28,26 +32,26 @@ void ObjMan::draw(int idx)
 
 void ObjMan::run(int idx)
 {
-	int myguy=heads[idx];
-	while(myguy!=-1)
+	activeObject=heads[idx];
+	while(activeObject!=-1)
 	{
-		objects[myguy].run();
-		if(objects[myguy].isDead())
+		objects[activeObject].run();
+		if(objects[activeObject].isDead())
 		{
 			//Link up the adjacent objects.
-			if(objects[myguy].prev!=-1)
-				objects[objects[myguy].prev].next=objects[myguy].next;
-			if(objects[myguy].next!=-1)
-				objects[objects[myguy].next].prev=objects[myguy].prev;
+			if(objects[activeObject].prev!=-1)
+				objects[objects[activeObject].prev].next=objects[activeObject].next;
+			if(objects[activeObject].next!=-1)
+				objects[objects[activeObject].next].prev=objects[activeObject].prev;
 			//Add my ID to the pool of available IDs.
-			freeIndices[nFreeIndices++]=myguy;
+			freeIndices[nFreeIndices++]=activeObject;
 			//Adjust head and tail entries if necessary.
-			if(heads[idx]==myguy)
-				heads[idx]=objects[myguy].next;
-			if(tails[idx]==myguy)
-				tails[idx]=objects[myguy].prev;
+			if(heads[idx]==activeObject)
+				heads[idx]=objects[activeObject].next;
+			if(tails[idx]==activeObject)
+				tails[idx]=objects[activeObject].prev;
 		}
-		myguy=objects[myguy].next;
+		activeObject=objects[activeObject].next;
 	}
 }
 
@@ -83,16 +87,17 @@ void ObjMan::draw()
 		draw(i);
 }
 
-void ObjMan::add(Object &o)
+int ObjMan::add(Object &o)
 {
 	if(nFreeIndices==0)
 	{
 //		MessageBox(0, "Objman::add() - no room for more objects!", 0, 0);
-		return;
+		return -1;
 	}
 	int slot=freeIndices[nFreeIndices-1];
 	nFreeIndices--;
 	objects[slot]=o;
+	objects[slot].id=slot;
 	int type=o.myclass;
 	if(heads[type]==-1)
 	{
@@ -104,12 +109,14 @@ void ObjMan::add(Object &o)
 		objects[slot].prev=tails[type];
 		tails[type]=slot;
 	}
+	return slot;
 }
 
 void ObjMan::makedude()
 {
 	Object o(1024.0f/2.0f,768.0f/2.0f,FACING_DOWN,0.0f,SPR_ARROW,ENEMY);
-	add(o);
+	activeObject=add(o);
+	luaL_dostring(gLua,"register(flowerthing);");
 }
 
 int ObjMan::size()

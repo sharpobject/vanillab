@@ -6,6 +6,7 @@
 #include "setup.h"
 #include "spriteman.h"
 #include "objman.h"
+#include "luafunctions.h"
 
 extern int gHeight;
 extern int gWidth;
@@ -24,6 +25,47 @@ bool setupLua()
 	{
 		MessageBox(0, "Something is already on the stack D:", 0, 0);
 	}
+	lua_register(gLua,"getX",getX);
+	lua_register(gLua,"getY",getY);
+	lua_register(gLua,"getTurn",getTurn);
+	lua_register(gLua,"getRank",getRank);
+	lua_register(gLua,"getSpeedX",getSpeedX);
+	lua_register(gLua,"getSpeedY",getSpeedY);
+	lua_register(gLua,"getDirection",getDirection);
+	lua_register(gLua,"getSpeed",getSpeed);
+	lua_register(gLua,"getID",getID);
+	lua_register(gLua,"setSpeed",setSpeed);
+	lua_register(gLua,"setSpeedCartesian",setSpeedCartesian);
+	lua_register(gLua,"vanish",vanish);
+	lua_register(gLua,"fire",fire);
+//	lua_register(gLua,"fireCartesian",fireCartesian);
+	lua_register(gLua,"setWaitFrames",setWaitFrames);
+	luaL_loadfile(gLua,"wait.lua");
+	lua_pcall(gLua,0,LUA_MULTRET,0);
+	if(lua_gettop(gLua))
+	{
+		MessageBox(0, "Something is already on the stack 2 D:", 0, 0);
+	}
+	luaL_loadfile(gLua,"flowerthing.lua");
+	lua_pcall(gLua,0,LUA_MULTRET,0);
+	if(lua_gettop(gLua))
+	{
+		MessageBox(0, "Something is already on the stack 3 D:", 0, 0);
+	}
+	luaL_loadfile(gLua,"register.lua");
+	lua_pcall(gLua,0,LUA_MULTRET,0);
+	if(lua_gettop(gLua))
+	{
+		MessageBox(0, "Something is already on the stack 4 D:", 0, 0);
+	}
+	luaL_loadfile(gLua,"run.lua");
+	lua_pcall(gLua,0,LUA_MULTRET,0);
+	if(lua_gettop(gLua))
+	{
+		MessageBox(0, "Something is already on the stack 5 D:", 0, 0);
+	}
+
+	luaL_dostring(gLua,"setSpeed()");
 	return true;
 }
 
@@ -131,7 +173,6 @@ bool Setup(
 
 	gSpriteMan = new SpriteMan();
 	gObjMan = new ObjMan();
-	gObjMan -> makedude();
 	if(FAILED(DirectInput8Create(hInstance,DIRECTINPUT_VERSION,IID_IDirectInput8A,(LPVOID*)(&gDI),NULL)))
 	{
 		MessageBox(0, "DirectInput8Create() - FAILED", 0, 0);
@@ -141,6 +182,7 @@ bool Setup(
 	gKeyboard->Acquire();
 	gLua=lua_open();
 	setupLua();
+	gObjMan -> makedude();
 	return true;
 }
 

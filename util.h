@@ -29,16 +29,26 @@ enum ObjectClass {ENEMY=0,
 				ENEMY_BULLET,
 				N_OBJECT_CLASSES};
 
-inline void getPolar(float &x,float &y,float &r, float &theta)
+inline void getPolar(float x,float y,float &r, float &theta)
 {
 	r=sqrt(x*x+y*y);
 	theta=atan2(-y,x);
 }
 
-inline void getCartesian(float &x,float &y,float &r, float &theta)
+inline void getCartesian(float &x,float &y,float r, float theta)
 {
 	x=r*cos(theta);
 	y=-r*sin(theta);
+}
+
+inline float getXFromPolar(float r,float theta)
+{
+	return r*cos(theta);
+}
+
+inline float getYFromPolar(float r,float theta)
+{
+	return -r*sin(theta);
 }
 
 #endif //__UtilH__
