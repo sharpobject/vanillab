@@ -21,6 +21,8 @@ Object::Object()
 	dead=true;
 	yAccel=xAccel=accel=rotation=0.0f;
 	yAccelTurns=xAccelTurns=accelTurns=rotationTurns=0;
+	waitFrames=0;
+	id=-1;
 	prev=next=-1;
 }
 
@@ -36,6 +38,8 @@ Object::Object(float px,float py, float pdirection, float pspeed, SpriteName psp
 	dead=false;
 	yAccel=xAccel=accel=rotation=0.0f;
 	yAccelTurns=xAccelTurns=accelTurns=rotationTurns=0;
+	waitFrames=0;
+	id=-1;
 	prev=next=-1;
 }
 
@@ -57,6 +61,8 @@ Object::Object(const Object &orig)
 	xAccelTurns=orig.xAccelTurns;
 	accelTurns=orig.accelTurns;
 	rotationTurns=orig.rotationTurns;
+	waitFrames=orig.waitFrames;
+	id=-1;
 	prev=next=-1;
 }
 
@@ -78,6 +84,8 @@ Object& Object::operator=(const Object &rhs)
 	xAccelTurns=rhs.xAccelTurns;
 	accelTurns=rhs.accelTurns;
 	rotationTurns=rhs.rotationTurns;
+	waitFrames=rhs.waitFrames;
+	id=-1;
 	prev=next=-1;
 	return *this;
 }
@@ -89,7 +97,17 @@ bool Object::operator<(const Object & rhs)
 
 void Object::run()
 {
-	switch(sprite)
+	if(waitFrames)
+	{
+		MessageBox(0, "waitFrames nonzero", 0, 0);
+		waitFrames--;
+	}
+	if(waitFrames==0&&sprite==SPR_ARROW)
+	{
+//		MessageBox(0, "running", 0, 0);
+		luaL_dostring(gLua,"run();");
+	}
+/*	switch(sprite)
 	{
 		case SPR_ARROW:
 			direction+=DEGREE;
@@ -113,7 +131,7 @@ void Object::run()
 			if(age>242)
 				dead=true;
 			break;
-	}
+	}*/
 	move();
 	age++;
 }

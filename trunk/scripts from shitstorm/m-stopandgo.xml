@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml/bulletml.dtd">
+
+<bulletml type="vertical"
+          xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml">
+
+	<action label="top">
+		<!--changeSpeed>
+			<speed>0</speed>
+			<term>2+$rand*27</term>
+		</changeSpeed-->
+		<wait>30</wait>
+		<changeDirection>
+			<direction type="absolute">180</direction>
+			<term>30</term>
+		</changeDirection>
+		<wait>4</wait>
+		<changeSpeed>
+			<speed>4</speed>
+			<term>4</term>
+		</changeSpeed>
+	</action>
+
+</bulletml>

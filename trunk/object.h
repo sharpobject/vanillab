@@ -26,12 +26,14 @@ private:
 	bool dead;
 
 	ObjectClass myclass;
+
+	int id;
 	
 	//Variables for compatibility with ported BulletML code and similar.
 	//These support accelerate, changespeed, and changedirection tags.
 	float yAccel,xAccel,accel,rotation;
 	int yAccelTurns,xAccelTurns,accelTurns,rotationTurns;
-
+	int waitFrames;
 
 	//Each object is (usually) its own node in an array-backed linked list.
 	//I was stoned or something.  Don't ask.
