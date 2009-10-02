@@ -21,7 +21,12 @@ extern "C"
 #define FACING_LEFT 3.141592653589793238462643383279502f
 #define FACING_DOWN 4.7123889803846898576939650749193f
 
-#define FPS_UPDATE_FREQ 20
+#define FPS_UPDATE_INTERVAL 20
+
+//This value is for porting shitstorm to vanillab.
+//Any reasonable positive real value is fine, as long as
+//you do all your scripting and testing with the same value.
+#define SPEED_SCALE 0.65106167700097107865980762762041f
 
 enum ObjectClass {ENEMY=0,
 				PLAYER_BULLET,

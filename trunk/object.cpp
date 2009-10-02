@@ -99,13 +99,15 @@ void Object::run()
 {
 	if(waitFrames)
 	{
-		MessageBox(0, "waitFrames nonzero", 0, 0);
+//		MessageBox(0, "waitFrames nonzero", 0, 0);
 		waitFrames--;
 	}
-	if(waitFrames==0&&sprite==SPR_ARROW)
+	if(waitFrames==0)
 	{
 //		MessageBox(0, "running", 0, 0);
-		luaL_dostring(gLua,"run();");
+		lua_pushstring(gLua, "run");
+		lua_gettable(gLua, LUA_GLOBALSINDEX);
+		lua_pcall(gLua, 0, 0, 0);
 	}
 /*	switch(sprite)
 	{
@@ -139,9 +141,11 @@ void Object::run()
 void Object::move()
 {
 	float dx,dy;
-	getCartesian(dx,dy,speed,direction);
+	getCartesian(dx,dy,SPEED_SCALE*speed,direction);
 	x+=dx;
 	y+=dy;
+	if(x<-100||y<-100||x>gWidth+100||y>gHeight+100)
+		dead=true;
 }
 
 void Object::draw()

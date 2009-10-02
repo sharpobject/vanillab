@@ -23,7 +23,7 @@ int gWidth  = 1024;
 int gHeight = 768;
 SpriteMan *gSpriteMan = 0;
 ObjMan *gObjMan = 0;
-int gFrameTimes[FPS_UPDATE_FREQ];
+int gFrameTimes[FPS_UPDATE_INTERVAL];
 int gFTidx;
 float gFPS=0.0;
 int gnObjects=0;
@@ -44,24 +44,24 @@ bool Display(int time,int prevtime)
 		gKeyboard->GetDeviceState(256,&keys);
 		//Calculate framerate and number of objects for display.
 		gFrameTimes[gFTidx]=time-prevtime;
-		gFTidx=(gFTidx+1)%FPS_UPDATE_FREQ;
+		gFTidx=(gFTidx+1)%FPS_UPDATE_INTERVAL;
 		if(gFTidx==0)
 		{
 			float sum=0;
-			for(int i=0;i<FPS_UPDATE_FREQ;i++)
+			for(int i=0;i<FPS_UPDATE_INTERVAL;i++)
 				sum+=gFrameTimes[i];
-			gFPS=FPS_UPDATE_FREQ*1000/sum;
+			gFPS=FPS_UPDATE_INTERVAL*1000/sum;
 			gFPS=((int)(gFPS*10+.5))*.1f;
-			gnObjects=gObjMan->size();
 		}		
 		gObjMan->run((unsigned char*)&keys);
+		gnObjects=gObjMan->size();
 		luaL_dostring(gLua,"myvalue=myvalue+1;");
-		lua_pushstring(gLua, "myvalues");
+		lua_pushstring(gLua, "myvalue");
 		lua_gettable(gLua, LUA_GLOBALSINDEX);
 		stringstream sout;
-		for(int i=0;i<min(time-prevtime-17,50);i++)
-			sout<<"DONGS\n";
-		sout<<lua_tostring(gLua,-1)<<" myvalue"<<"\n";
+//		for(int i=0;i<min(time-prevtime-17,50);i++)
+//			sout<<"DONGS\n";
+		sout<<lua_tostring(gLua,-1)<<"  frames"<<"\n";
 		sout<<gFPS<<"     FPS\n"<<gnObjects<<" Objects";
 		lua_pop(gLua,1);
 		gDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xff3E6B2E, 1.0f, 0);
