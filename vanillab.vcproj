@@ -217,6 +217,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\objinfo.h"
+				>
+			</File>
+			<File
 				RelativePath=".\objman.h"
 				>
 			</File>

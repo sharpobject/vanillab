@@ -20,6 +20,7 @@ D3DPRESENT_PARAMETERS d3dpp;
 
 bool setupLua()
 {
+	luaL_openlibs(gLua);
 	luaL_dostring(gLua, "myvalue=0" );
 	if(lua_gettop(gLua))
 	{
@@ -40,7 +41,7 @@ bool setupLua()
 	lua_register(gLua,"fire",fire);
 //	lua_register(gLua,"fireCartesian",fireCartesian);
 	lua_register(gLua,"setWaitFrames",setWaitFrames);
-	luaL_loadfile(gLua,"wait.lua");
+	luaL_loadfile(gLua,"setup.lua");
 	lua_pcall(gLua,0,LUA_MULTRET,0);
 	if(lua_gettop(gLua))
 	{
@@ -52,20 +53,6 @@ bool setupLua()
 	{
 		MessageBox(0, "Something is already on the stack 3 D:", 0, 0);
 	}
-	luaL_loadfile(gLua,"register.lua");
-	lua_pcall(gLua,0,LUA_MULTRET,0);
-	if(lua_gettop(gLua))
-	{
-		MessageBox(0, "Something is already on the stack 4 D:", 0, 0);
-	}
-	luaL_loadfile(gLua,"run.lua");
-	lua_pcall(gLua,0,LUA_MULTRET,0);
-	if(lua_gettop(gLua))
-	{
-		MessageBox(0, "Something is already on the stack 5 D:", 0, 0);
-	}
-
-	luaL_dostring(gLua,"setSpeed()");
 	return true;
 }
 
