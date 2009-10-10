@@ -15,8 +15,8 @@ Object::Object()
 	y=0;
 	direction=0;
 	speed=0;
-	sprite=(SpriteName)0;
-	myclass=(ObjectClass)0;
+	sprite=NO_SPRITE;
+	myclass=SPECIAL_OBJECT;
 	age=0;
 	dead=true;
 	yAccel=xAccel=accel=rotation=0.0f;
@@ -24,6 +24,7 @@ Object::Object()
 	waitFrames=0;
 	id=-1;
 	prev=next=-1;
+	childinfo=ObjInfo(NO_SPRITE,SPECIAL_OBJECT);
 }
 
 Object::Object(float px,float py, float pdirection, float pspeed, SpriteName psprite, ObjectClass pclass)
@@ -41,6 +42,7 @@ Object::Object(float px,float py, float pdirection, float pspeed, SpriteName psp
 	waitFrames=0;
 	id=-1;
 	prev=next=-1;
+	childinfo=ObjInfo(NO_SPRITE,SPECIAL_OBJECT);
 }
 
 Object::Object(const Object &orig)
@@ -64,6 +66,7 @@ Object::Object(const Object &orig)
 	waitFrames=orig.waitFrames;
 	id=-1;
 	prev=next=-1;
+	childinfo=orig.childinfo;
 }
 
 Object& Object::operator=(const Object &rhs)
@@ -87,6 +90,7 @@ Object& Object::operator=(const Object &rhs)
 	waitFrames=rhs.waitFrames;
 	id=-1;
 	prev=next=-1;
+	childinfo=rhs.childinfo;
 	return *this;
 }
 
@@ -140,6 +144,11 @@ void Object::run()
 
 void Object::move()
 {
+	if(accelTurns)
+	{
+		speed+=accel;
+		accelTurns--;
+	}
 	float dx,dy;
 	getCartesian(dx,dy,SPEED_SCALE*speed,direction);
 	x+=dx;
@@ -152,7 +161,7 @@ void Object::draw()
 {
 	if(x<-100||y<-100||x>gWidth+100||y>gHeight+100)
 		return;
-	if(sprite)
+	if(sprite>NO_SPRITE)
 		gSpriteMan->draw(sprite,x,y,25/TEXTURE_SZ,25/TEXTURE_SZ,-direction+PI/2);
 }
 

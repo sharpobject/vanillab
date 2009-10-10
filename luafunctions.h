@@ -12,11 +12,17 @@ int getSpeedY(lua_State *L);
 int getDirection(lua_State *L);
 int getSpeed(lua_State *L);
 int getID(lua_State *L);
+int getNewest(lua_State *L);
 
 int setSpeed(lua_State *L);
 int setSpeedCartesian(lua_State *L);
 
+int changeSpeed(lua_State *L);
+
 int vanish(lua_State *L);
+
+int setChildSprite(lua_State *L);
+int setChildType(lua_State *L);
 
 int fire(lua_State *L);
 int fireCartesian(lua_State *L);

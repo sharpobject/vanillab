@@ -1,0 +1,486 @@
+<?xml version="1.0"?>
+<!-- Settings for Ned's Turkey Farm -->
+
+<settings>
+
+	<!-- renderer settings -->
+
+	<renderer width="1024" height="768" windowed="1" />
+	
+	<!-- intro sequence -->
+	
+	<intro display="1" logo="7" title="10" credits="10" />
+
+	<!-- image file names -->
+
+	<images>
+		<image src="textures\BGBlue.png" />
+		<image src="textures\BlackRectangle.png" />
+		<image src="textures\SSLarc.jpg" />
+		<image src="textures\SSTitle.png" />
+		<image src="textures\SSCredits.png" />
+		<image src="textures\SSMenu.png" />
+		<image src="textures\SSCursor.png" />
+		<image src="textures\SSOptions.png" />
+		<image src="textures\SSFont.png" />
+		<image src="textures\SSLEDFont.png" />
+		<image src="textures\SSLevelComplete.png" />
+		<image src="textures\SSHighScores.png" />
+		<image src="textures\SSNewHighScore.png" />
+	</images>
+	
+	<!-- sprites -->
+	
+	<sprites>
+		<sprite name="Button1Player" file="textures\SSMenu1Player" ext="png" frames="2" />
+		<sprite name="Button2Player" file="textures\SSMenu2Player" ext="png" frames="2" />
+		<sprite name="ButtonOptions" file="textures\SSMenuOptions" ext="png" frames="2" />
+		<sprite name="ButtonHighScores" file="textures\SSMenuHighScores" ext="png" frames="2" />
+		<sprite name="ButtonKeyboard" file="textures\SSMenuKeyboard" ext="png" frames="2" />
+		<sprite name="ButtonMouse" file="textures\SSMenuMouse" ext="png" frames="2" />
+		<sprite name="ButtonJoy" file="textures\SSMenuJoystick" ext="png" frames="2" />
+		<sprite name="ButtonQuit" file="textures\SSMenuQuit" ext="png" frames="2" />
+		<sprite name="Hud_GaugeHP" file="textures\HudgaugeHP" ext="png" frames="1" />
+		<sprite name="Hud_GaugeLF" file="textures\HudgaugeLF" ext="png" frames="1" />
+		<sprite name="Hud_GaugeLVL" file="textures\HudgaugeLVL" ext="png" frames="1" />
+		<sprite name="CollisionCircle" file="textures\CollisionCircle" ext="png" frames="1" draw3d="1" />
+	</sprites>
+
+	<!-- objects-->
+
+	<objects>
+		
+		<object name="Player"
+			file="textures\Player" ext="png" frames="3" draw3d="1"
+			minxspeed="-999" maxxspeed="999"
+			minyspeed="-999" maxyspeed="999"
+			maxspeed="10.0"
+			acceleration="2.0"
+			deceleration="10.0"
+			maxshiproll="15"
+			firerate="8"
+			bulletspeed="-40" 
+			frameinterval="2"
+			cycle="1"
+			animation="0,1,2"
+			scale="0.4"
+			radius="5"
+			team="1"
+			lives="10" 
+			damage="10"
+		/>
+
+		<object name="PlayerExplosion"
+		    file="textures\Playerexplosion" ext="png" frames="9" draw3d="1"
+			frameinterval="4"
+			cycle="0"
+			animation="0,1,2,3,4,5,6,7,8"
+			scale="0.4"
+			radius="-1"
+			team="1"
+		/>	
+		
+		<object name="Orbital"
+			file="textures\Orbital" ext="png" frames="8" draw3d="1"
+			followdistance="90"
+			firerate="8"
+			bulletspeed="40"
+			frameinterval="2"
+			animation="0,1,2,3,4,5,6,7"
+			cycle="1"
+			scale="0.75"
+			team="1"
+		/>
+
+		<object name="Thrust"
+		    file="textures\Thrust" ext="png" frames="5" draw3d="1"
+			frameinterval="1"
+			animation="0,1,2,3,4"
+			minxspeed="-20" maxxspeed="20" 
+			minyspeed="-20" maxyspeed="20"
+			scale="0.44"
+		/>
+
+		<object name="Casing"
+		    file="textures\casing" ext="png" frames="4" draw3d="1"
+			frameinterval="1"
+			animation="0,1,2,3"
+			cycle="1" 
+			lifetime="0.45" 
+			minxspeed="-3" maxxspeed="3" 
+			maxyspeed="15"
+			scale="0.6"
+		/>
+
+		<object name="BulletR"
+			file="textures\BulletR" ext="png" frames="1" draw3d="1"
+			frameinterval="3"
+			cycle="1"
+			animation="0"
+			scale="0.425"
+			minxspeed="-999" maxxspeed="999" 
+			minyspeed="-999" maxyspeed="999" 
+			radius="13"
+			team="1"
+			projectile="1"
+			damage="1"
+		/>
+
+		<object name="BulletG"
+		    file="textures\BulletG" ext="png" frames="1" draw3d="1"
+			frameinterval="3"
+			cycle="1"
+			animation="0"
+			scale="0.275" 
+			minxspeed="-999" maxxspeed="999" 
+			minyspeed="-999" maxyspeed="999" 
+			radius="8"
+			damage="1" 
+			team="2"
+			projectile="1"
+		/>
+
+		<object name="BulletB"
+		    file="textures\BulletB" ext="png" frames="1" draw3d="1"
+			frameinterval="3"
+			cycle="1"
+			animation="0"
+			scale="0.275" 
+			minxspeed="-999" maxxspeed="999" 
+			minyspeed="-999" maxyspeed="999" 
+			radius="8"
+			damage="1" 
+			team="2"
+			projectile="1"
+		/>
+
+		<object name="BulletBig"
+		    file="textures\BulletG" ext="png" frames="1" draw3d="1"
+			frameinterval="3"
+			cycle="1"
+			animation="0"
+			scale="0.65" 
+			minxspeed="-999" maxxspeed="999" 
+			minyspeed="-999" maxyspeed="999" 
+			radius="16"
+			damage="1" 
+			team="2"
+			projectile="1"
+		/>
+
+		<object name="EnemyA"
+		    file="textures\EnemyA" ext="png" frames="1" draw3d="1"
+			minxspeed="-999" maxxspeed="999" 
+			minyspeed="-999" maxyspeed="999" 
+			frameinterval="250" 
+			cycle="1"
+			scale="0.7"
+			radius="30"
+			team="2"
+			damage="1"
+		/>
+
+		<object name="EnemyAExplosion"
+		    file="textures\ExplosionA" ext="png" frames="5" draw3d="1"
+			frameinterval="5"
+			cycle="0"
+			animation="0,1,2,3,4"
+			scale="0.7"
+			radius="-1"
+			team="2"
+		/>
+
+		<object name="EnemyB"
+		    file="textures\EnemyB" ext="png" frames="6" draw3d="1"
+			minxspeed="-20" maxxspeed="20" 
+			minyspeed="-20" maxyspeed="20" 
+			frameinterval="10" 
+			cycle="1"
+			animation="0,1,2,3,4,5"
+			scale="0.8"
+			radius="30"
+			team="2"
+			damage="1"
+			health="1"
+		/>
+
+		<object name="EnemyBExplosion"
+		    file="textures\EnemyBExplosion" ext="png" frames="7" draw3d="1"
+			frameinterval="5"
+			cycle="0"
+			animation="0,1,2,3,4,5,6"
+			scale="0.8"
+			radius="-1"
+			team="2"
+		/>
+		
+		<object name="EnemyC"
+		    file="textures\EnemyC" ext="png" frames="25" draw3d="1"
+			minxspeed="-20" maxxspeed="20" 
+			minyspeed="-20" maxyspeed="20" 
+			frameinterval="2" 
+			animation="24"
+			cycle="1"
+			scale="1.0"
+			radius="30"
+			team="2"
+			damage="1"
+			health="1"
+		/>
+
+		<object name="EnemyCExplosion"
+		    file="textures\EnemyCexplode" ext="png" frames="7" draw3d="1"
+			frameinterval="4"
+			cycle="0"
+			animation="0,1,2,3,4,5,6"
+			scale="1.0"
+			radius="-1"
+			team="2"
+		/>
+		
+		<object name="BossA"
+		    file="textures\BossA" ext="png" frames="1" draw3d="1"
+			minxspeed="-20" maxxspeed="20" 
+			minyspeed="-20" maxyspeed="20" 
+			frameinterval="250" 
+			cycle="1"
+			scale="1.2"
+			radius="100"
+			health="400" 
+			damage="1" 
+			team="2"
+			laserinterval="10"
+		/>
+
+		<object name="BossAExplosion"
+			file="textures\BossAexplode" ext="png" frames="64" draw3d="1"
+			frameinterval="4"
+			cycle="0"
+			animation="0,1,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,7,8,9,10,11,12,13,14"
+			scale="1.2"
+			radius="-1"
+			team="2"
+		/>
+
+		<object name="BossATurret"
+		    file="textures\BossATurret" ext="png" frames="1" draw3d="1"
+			minxspeed="-20" maxxspeed="20" 
+			minyspeed="-20" maxyspeed="20" 
+			firerate="6"
+			bulletspeed="8" 
+			scale="1.2"
+			radius="40"
+			team="2"
+			damage="1"
+			health="90"
+		/>
+
+		<object name="BossATurretLightmap"
+		    file="textures\BossATurretLightmap" ext="png" frames="1" draw3d="1"
+			minxspeed="-20" maxxspeed="20" 
+			minyspeed="-20" maxyspeed="20" 
+			scale="1.2"
+			radius="-1"
+			team="2"
+		/>
+
+		<object name="BossATurretExplosion"
+			file="textures\BossATurretExplosion" ext="png" frames="13" draw3d="1"
+			frameinterval="5"
+			animation="0,1,2,3,4,5,6,7,8,9,10,11,12"
+			scale="1.2"
+			radius="-1"
+			team="2"
+		/>
+
+		<object name="Target"
+			file="textures\Target" ext="png" frames="2" draw3d="1"
+			frameinterval="4"
+			animation="0,1"
+			cycle="1"
+			lifetime="3.0"
+			scale="0.35"
+			radius="-1"
+			team="2"
+		/>
+		
+		<object name="BossALaserWarmup"
+			file="textures\BossALaserWarmup" ext="png" frames="3" draw3d="1"
+			frameinterval="1"
+			cycle="1"
+			animation="0,1,2"
+			scale="1.5"
+			radius="-1"
+			team="2"
+		/>
+
+		<object name="BossALaser"
+			file="textures\BossALaser" ext="png" frames="3" draw3d="1"
+			frameinterval="2"
+			cycle="1"
+			animation="0,1,2"
+			scale="1.5"
+			collisionwidth="116" 
+			warmuptime=".800"
+			firetime="5.000"
+			radius="-1"
+			team="2"
+		/>
+
+		<object name="CloudA"
+		    file="textures\CloudA" ext="png" frames="1" draw3d="1"
+			minxspeed="-20" maxxspeed="20" 
+			minyspeed="5" maxyspeed="20" 
+			wrapx="1" 
+			wrapy="1"
+			scale="1"
+		/>
+
+		<object name="CloudB"
+		    file="textures\CloudB" ext="png" frames="22" draw3d="1"
+			minxspeed="0" maxxspeed="0" 
+			minyspeed="0" maxyspeed="1" 
+			animation="0,0,1,2,3,4,5,6,7,7,8,9,10,11,12,12,12,12,12,12,12,12"
+			frameinterval="5" 
+			cycle="1"
+			wrapx="1" 
+			wrapy="1"
+			scale="2.0"
+		/>
+
+	</objects>
+
+	<!-- sound -->
+	<!-- "cps" is number of channels per sound, 1 for mono, 2 for stereo -->
+	<!-- "bps" is number of bits per sample, usually 8 or 16 -->
+	<!-- "rate" is sample rate -->
+	
+	<sound cps="1" bps="8" rate="22050"/>
+	
+	<sounds level="0">
+		<sound file="sounds\GameMusic.wav" copies="1"/>
+		<sound file="sounds\Intro.wav" copies="1"/>
+		<sound file="sounds\larc.wav" copies="1"/>
+		<sound file="sounds\Caw.wav" copies="4"/>
+		<sound file="sounds\Gun.wav" copies="10"/>
+		<sound file="sounds\Hit.wav" copies="10"/>
+		<sound file="sounds\BoomSmall.wav" copies="10"/>
+		<sound file="sounds\BoomLarge.wav" copies="5"/>
+		<sound file="sounds\BoomHuge.wav" copies="3"/>
+		<sound file="sounds\EnemyShot1.wav" copies="10"/>
+		<sound file="sounds\EnemyShot2.wav" copies="10"/>
+		<sound file="sounds\BossALaserWarmup.wav" copies="1"/>
+		<sound file="sounds\BossALaserStart.wav" copies="1"/>
+		<sound file="sounds\BossALaser.wav" copies="1"/>
+		<sound file="sounds\BossALaserCooldown.wav" copies="1"/>
+		<sound file="sounds\PlayerDestroyed.wav" copies="1"/>
+		<sound file="sounds\Thump.wav" copies="4"/>
+		<sound file="sounds\Bgclk.wav" copies="2"/>
+		<sound file="sounds\Smclk.wav" copies="2"/>
+		<sound file="sounds\Success.wav" copies="1"/>
+		<sound file="sounds\Failed.wav" copies="1"/>
+		<sound file="sounds\Life.wav" copies="2"/>
+		<sound file="sounds\Stings.wav" copies="2"/>
+		<sound file="sounds\Smarts.wav" copies="2"/>
+		<sound file="sounds\Congrats.wav" copies="1"/>
+		<sound file="sounds\Twspace.wav" copies="4"/>
+		<sound file="sounds\Twret.wav" copies="4"/>
+		<sound file="sounds\Twchar.wav" copies="4"/>
+	</sounds>
+
+	<!-- enemies~ -->
+	<!-- "time" is the number of frames since the last ship spawned -->
+	<!-- "x" and "y" are from -1000 to 1000, scaled within the play area -->
+
+	
+	<enemies level="1">
+		<!--A circle of 8 basic enemies-->	
+		<enemy object="EnemyA" move="patterns/m-stopandgo.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="60" x="0" y="800" xs="5.656854249" ys="5.656854249" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-stopandgo.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="0" x="0" y="800" xs="8" ys="0" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-stopandgo.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="0" x="0" y="800" xs="5.656854249" ys="-5.656854249" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-stopandgo.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="0" x="0" y="800" xs="0" ys="8" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-stopandgo.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="0" x="0" y="800" xs="0" ys="-8" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-stopandgo.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="0" x="0" y="800" xs="-8" ys="0" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-stopandgo.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="0" x="0" y="800" xs="-5.656854249" ys="5.656854249" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-stopandgo.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="0" x="0" y="800" xs="-5.656854249" ys="-5.656854249" hits="8"/>
+
+		<!--A wave of basic enemies. 16 of them.-->
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="500" x="-700"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="500"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="300"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="-500"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="100"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="-600"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="200"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="700"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="-200"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="000"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="-400"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="400"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="555"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="070"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="-600"	y="875" xs="0" ys="-2" hits="8"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAEasyFire.xml"
+			time="20" x="600"	y="875" xs="0" ys="-2" hits="8"/>
+		
+		<!--4 Type B enemies shooting sinusoidal lazers! pew pew!-->
+		<enemy object="EnemyB" move="patterns/m-wave3left.xml" pattern="patterns/s-spiral2x3l.xml"
+			time="400" x="-1600" y="650" xs="4" ys="0" hits="30"/>
+		<enemy object="EnemyB" move="patterns/m-wave3right.xml" pattern="patterns/s-spiral2x3r.xml"
+			time="0" x="1600" y="650" xs="-4" ys="0" hits="30"/>
+		<enemy object="EnemyB" move="patterns/m-wave3right.xml" pattern="patterns/s-spiral2x3l.xml"
+			time="400" x="-2050" y="750" xs="4" ys="0" hits="30"/>
+		<enemy object="EnemyB" move="patterns/m-wave3left.xml" pattern="patterns/s-spiral2x3r.xml"
+			time="0" x="2050" y="750" xs="-4" ys="0" hits="30"/>
+
+		<!--but with Type A enemies shooting teh secks-->
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAHoming.xml"
+			time="600" x="-700" y="1200" xs="1" ys="-2.5" hits="20"/>
+		<enemy object="EnemyA" move="patterns/m-donothing.xml" pattern="patterns/s-enemyAHoming.xml"
+			time="00" x="700" y="1200" xs="-1" ys="-2.5" hits="20"/>
+		
+		<!--flowarz-->
+		<enemy object="EnemyB" move="patterns/m-donothing.xml" pattern="patterns/s-flowerthing.xml"
+			time="700" x="0" y="1250" xs="0" ys="-1.5" hits="20"/>
+		<enemy object="EnemyB" move="patterns/m-donothing.xml" pattern="patterns/s-flowerthing.xml"
+			time="0" x="-350" y="1100" xs="0" ys="-1.5" hits="20"/>
+		<enemy object="EnemyB" move="patterns/m-donothing.xml" pattern="patterns/s-flowerthing.xml"
+			time="0" x="350" y="1100" xs="0" ys="-1.5" hits="20"/>
+		<enemy object="EnemyB" move="patterns/m-donothing.xml" pattern="patterns/s-flowerthing.xml"
+			time="0" x="-700" y="850" xs="0" ys="-1.5" hits="20"/>
+		<enemy object="EnemyB" move="patterns/m-donothing.xml" pattern="patterns/s-flowerthing.xml"
+			time="0" x="700" y="850" xs="0" ys="-1.5" hits="20"/>
+	</enemies>
+	
+	<!-- debugger settings -->
+
+	<debug linenumber="1" header="1">
+		<file select="1" name="debug.txt"/>
+		<debugger select="1"/>
+		<ip select="1" address="127.0.0.1" port="1617"/>
+	</debug>
+
+</settings>

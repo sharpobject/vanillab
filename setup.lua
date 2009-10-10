@@ -14,6 +14,30 @@ function run()
 	end
 end
 function register(f)
-	local id=getID();
+	local id=getNewest();
 	routines[id]=coroutine.create(f);
 end
+function fire(a,b,c)
+	cfire(a,b);
+	if(c==nil) then
+		return
+	end
+	register(c);
+end
+function cleanup()
+	local id=getID();
+	routines[id]=nil;
+end
+
+NO_SPRITE=-1;
+SPR_MED_CIR_BULLET=NO_SPRITE+1;
+SPR_ARROW=SPR_MED_CIR_BULLET+1;
+SPR_PLAYER=SPR_ARROW+1;
+N_SPRITES=SPR_PLAYER+1;
+
+ENEMY=0
+PLAYER_BULLET=ENEMY+1;
+PLAYER=PLAYER_BULLET+1;
+ENEMY_BULLET=PLAYER+1;
+SPECIAL_OBJECT=ENEMY_BULLET+1;
+N_OBJECT_CLASSES=SPECIAL_OBJECT+1;

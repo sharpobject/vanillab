@@ -30,6 +30,7 @@ public:
 	float getDirection(){return objects[activeObject].direction;}
 	float getSpeed(){return objects[activeObject].speed;}
 	float getID(){return (float)activeObject;}
+	float getNewest(){return (float)newestObject;}
 	void setSpeed(float r,float theta)
 	{
 		objects[activeObject].speed=r;
@@ -41,15 +42,22 @@ public:
 		getPolar(x,y,r,theta);
 		setSpeed(r,theta);
 	}
+	void changeSpeed(float speed,int turns)
+	{
+		objects[activeObject].accel=(speed-objects[activeObject].speed)/turns;
+		objects[activeObject].accelTurns=turns;
+	}
 	void vanish(){objects[activeObject].dead=true;}
+	void setChildSprite(SpriteName s){objects[activeObject].childinfo.sprite=s;}
+	void setChildType(ObjectClass c){objects[activeObject].childinfo.myclass=c;}
 	void setWaitFrames(int n){objects[activeObject].waitFrames=n;}
 	void fire(float r,float theta)
 	{
 		Object o(objects[activeObject].x,
 				objects[activeObject].y,
 				theta,r,
-				SPR_MED_CIR_BULLET,
-				ENEMY_BULLET);
+				objects[activeObject].childinfo.sprite,
+				objects[activeObject].childinfo.myclass);
 		add(o);
 	}
 
@@ -73,6 +81,9 @@ private:
 	//The active object.  Lua functions that change object variables will act on it.
 	//Depending on what I end up doing it may belong in Object instead.
 	int activeObject;
+	//This is here mainly for the register() function.
+	//It's good to be able to refer to the object you just created.
+	int newestObject;
 };
 
 
