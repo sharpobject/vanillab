@@ -66,10 +66,10 @@ void SpriteMan::drawFPS(string s)
 	for(int i=0;i<4;i++)
 		mat.m[i][i]=1;
 	m_sprite->SetTransform(&mat);
-	++++m_textrect.bottom;
-	++m_textrect.right;
+	m_textrect.bottom+=2;
+	m_textrect.right+=1;
 	m_font->DrawText(m_sprite,s.c_str(),s.size(),&m_textrect,DT_RIGHT|DT_BOTTOM,0xff000000);
-	----m_textrect.bottom;
-	--m_textrect.right;
+	m_textrect.bottom-=2;
+	m_textrect.right-=1;
 	m_font->DrawText(m_sprite,s.c_str(),s.size(),&m_textrect,DT_RIGHT|DT_BOTTOM,0xffffffff);
 }

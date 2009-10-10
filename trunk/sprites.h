@@ -1,7 +1,7 @@
 #ifndef __SpritesH__
 #define __SpritesH__
 
-enum SpriteName {NO_SPRITE=0,
+enum SpriteName {NO_SPRITE=-1,
 				SPR_MED_CIR_BULLET,
 				SPR_ARROW,
 				SPR_PLAYER,
@@ -13,8 +13,7 @@ enum SpriteName {NO_SPRITE=0,
 
 } SpriteInfo;*/
 
-const char gSpriteFiles[N_SPRITES][60]={"",
-										"textures/medium_circle_bullet.png",
+const char gSpriteFiles[N_SPRITES][60]={"textures/medium_circle_bullet.png",
 										"textures/arrow.png",
 										"textures/pointy_guy.png"
 										};

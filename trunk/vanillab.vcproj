@@ -191,6 +191,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\objinfo.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\objman.cpp"
 				>
 			</File>

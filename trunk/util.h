@@ -10,7 +10,7 @@ extern "C"
 
 #define DIRECTINPUT_VERSION 0x0800
 
-#define MAX_N_OBJECTS 60000
+#define MAX_N_OBJECTS 10000
 #define TEXTURE_SZ 64.0f
 
 #define PI 3.141592653589793238462643383279502f
@@ -32,6 +32,7 @@ enum ObjectClass {ENEMY=0,
 				PLAYER_BULLET,
 				PLAYER,
 				ENEMY_BULLET,
+				SPECIAL_OBJECT,
 				N_OBJECT_CLASSES};
 
 inline void getPolar(float x,float y,float &r, float &theta)

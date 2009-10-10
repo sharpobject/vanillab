@@ -35,10 +35,14 @@ bool setupLua()
 	lua_register(gLua,"getDirection",getDirection);
 	lua_register(gLua,"getSpeed",getSpeed);
 	lua_register(gLua,"getID",getID);
+	lua_register(gLua,"getNewest",getNewest);
 	lua_register(gLua,"setSpeed",setSpeed);
 	lua_register(gLua,"setSpeedCartesian",setSpeedCartesian);
+	lua_register(gLua,"changeSpeed",changeSpeed);
 	lua_register(gLua,"vanish",vanish);
-	lua_register(gLua,"fire",fire);
+	lua_register(gLua,"setChildType",setChildType);
+	lua_register(gLua,"setChildSprite",setChildSprite);
+	lua_register(gLua,"cfire",fire);
 //	lua_register(gLua,"fireCartesian",fireCartesian);
 	lua_register(gLua,"setWaitFrames",setWaitFrames);
 	luaL_loadfile(gLua,"setup.lua");

@@ -4,6 +4,7 @@
 #include "util.h"
 #include "setup.h"
 #include "sprites.h"
+#include "objinfo.h"
 
 class Object
 {
@@ -40,8 +41,12 @@ private:
 	//Anyway, these are "pointers" to the adjacent objects.
 	//-1 means null.
 	int prev,next;
+
+	//An ObjInfo representing the bullets fired by this object.
+	ObjInfo childinfo;
 public:
 	friend class ObjMan;
+	friend class ObjInfo;
 };
 
 

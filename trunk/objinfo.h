@@ -4,7 +4,8 @@
 #include "util.h"
 #include "setup.h"
 #include "sprites.h"
-#include "object.h"
+
+class Object;
 
 class ObjInfo
 {
@@ -12,8 +13,9 @@ public:
 	ObjInfo();
 	ObjInfo(const Object&);
 	ObjInfo(const ObjInfo&);
+	ObjInfo(SpriteName,ObjectClass);
 	ObjInfo& operator=(const ObjInfo&);
-	~ObjInfo();
+	ObjInfo& operator=(const Object&);
 public:
 	SpriteName sprite;
 	ObjectClass myclass;

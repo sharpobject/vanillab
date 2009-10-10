@@ -38,6 +38,9 @@ void ObjMan::run(int idx)
 		objects[activeObject].run();
 		if(objects[activeObject].isDead())
 		{
+			lua_pushstring(gLua,"cleanup");
+			lua_gettable(gLua,LUA_GLOBALSINDEX);
+			lua_call(gLua,0,0);
 			//Link up the adjacent objects.
 			if(objects[activeObject].prev!=-1)
 				objects[objects[activeObject].prev].next=objects[activeObject].next;
@@ -95,6 +98,7 @@ int ObjMan::add(Object &o)
 		return -1;
 	}
 	int slot=freeIndices[nFreeIndices-1];
+	newestObject=slot;
 	nFreeIndices--;
 	objects[slot]=o;
 	objects[slot].id=slot;
@@ -114,7 +118,7 @@ int ObjMan::add(Object &o)
 
 void ObjMan::makedude()
 {
-	Object o(1024.0f/2.0f,768.0f/2.0f,FACING_DOWN,0.0f,SPR_ARROW,ENEMY);
+	Object o(0,0,FACING_DOWN,0.0f,NO_SPRITE,SPECIAL_OBJECT);
 	activeObject=add(o);
 	luaL_dostring(gLua,"register(flowerthing);");
 }
