@@ -34,7 +34,7 @@ end
 function turnleftpew()
 	setChildType(ENEMY_BULLET)
 	setChildSprite(SPR_MED_CIR_BULLET)
-	changeSpeed(.1,30)
+	changeSpeed(0,30)
 	wait(30)
 	local mydirection=getDirection()
 	changeDirection(mydirection+90*DEGREES,40)
