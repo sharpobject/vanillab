@@ -116,7 +116,7 @@ void Object::run()
 /*	switch(sprite)
 	{
 		case SPR_ARROW:
-			direction+=DEGREE;
+			direction+=DEGREES;
 			if(age%9==0)
 			{
 				Object newguy(*this);
@@ -148,6 +148,11 @@ void Object::move()
 	{
 		speed+=accel;
 		accelTurns--;
+	}
+	if(rotationTurns)
+	{
+		direction+=rotation;
+		rotationTurns--;
 	}
 	float dx,dy;
 	getCartesian(dx,dy,SPEED_SCALE*speed,direction);

@@ -108,6 +108,30 @@ int changeSpeed(lua_State *L)
 	gObjMan->changeSpeed(speed,turns);
 }
 
+int changeDirection(lua_State *L)
+{
+	int n = lua_gettop(L);
+	if(n!=2)
+	{
+		MessageBox(0, "changeDirection() failed - wrong number of args", 0, 0);
+		return 0;
+	}
+	float direction=lua_tonumber(L,1);
+	int turns=(int)lua_tonumber(L,2);
+	if(turns<=0)
+	{
+		MessageBox(0, "changeDirection() failed - turns must be positive", 0, 0);
+		return 0;
+	}
+	gObjMan->changeDirection(direction,turns);
+}
+
+int aim(lua_State *L)
+{
+	lua_pushnumber(L,gObjMan->aim());
+	return 1;
+}
+
 int vanish(lua_State *L)
 {
 	gObjMan->vanish();

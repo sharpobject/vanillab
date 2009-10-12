@@ -52,9 +52,10 @@ bool Display(int time,int prevtime)
 				sum+=gFrameTimes[i];
 			gFPS=FPS_UPDATE_INTERVAL*1000/sum;
 			gFPS=((int)(gFPS*10+.5))*.1f;
+			gnObjects=gObjMan->size();
 		}		
 		gObjMan->run((unsigned char*)&keys);
-		gnObjects=gObjMan->size();
+		//gnObjects=gObjMan->size();
 		luaL_dostring(gLua,"myvalue=myvalue+1;");
 		lua_pushstring(gLua, "myvalue");
 		lua_gettable(gLua, LUA_GLOBALSINDEX);

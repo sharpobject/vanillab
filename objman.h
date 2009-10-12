@@ -47,6 +47,24 @@ public:
 		objects[activeObject].accel=(speed-objects[activeObject].speed)/turns;
 		objects[activeObject].accelTurns=turns;
 	}
+	void changeDirection(float direction,int turns)
+	{
+		direction=fmod(30*FULL_CIRCLE+direction,FULL_CIRCLE);
+		objects[activeObject].direction=fmod(30*FULL_CIRCLE+objects[activeObject].direction,FULL_CIRCLE);
+		objects[activeObject].rotation=(direction-objects[activeObject].direction)/turns;
+		objects[activeObject].rotationTurns=turns;
+		if(direction-objects[activeObject].direction>PI)
+			objects[activeObject].rotation=(direction-objects[activeObject].direction-FULL_CIRCLE)/turns;
+		else if(direction-objects[activeObject].direction<-PI)
+			objects[activeObject].rotation=(direction-objects[activeObject].direction+FULL_CIRCLE)/turns;
+	}
+	float aim()
+	{
+		if(heads[PLAYER]==-1)
+			return FACING_DOWN;
+		return getTheta(objects[heads[PLAYER]].x-objects[activeObject].x,
+			objects[heads[PLAYER]].y-objects[activeObject].y);
+	}
 	void vanish(){objects[activeObject].dead=true;}
 	void setChildSprite(SpriteName s){objects[activeObject].childinfo.sprite=s;}
 	void setChildType(ObjectClass c){objects[activeObject].childinfo.myclass=c;}

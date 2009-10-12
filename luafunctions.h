@@ -18,6 +18,8 @@ int setSpeed(lua_State *L);
 int setSpeedCartesian(lua_State *L);
 
 int changeSpeed(lua_State *L);
+int changeDirection(lua_State *L);
+int aim(lua_State *L);
 
 int vanish(lua_State *L);
 

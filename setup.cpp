@@ -39,6 +39,8 @@ bool setupLua()
 	lua_register(gLua,"setSpeed",setSpeed);
 	lua_register(gLua,"setSpeedCartesian",setSpeedCartesian);
 	lua_register(gLua,"changeSpeed",changeSpeed);
+	lua_register(gLua,"changeDirection",changeDirection);
+	lua_register(gLua,"aim",aim);
 	lua_register(gLua,"vanish",vanish);
 	lua_register(gLua,"setChildType",setChildType);
 	lua_register(gLua,"setChildSprite",setChildSprite);
@@ -52,6 +54,12 @@ bool setupLua()
 		MessageBox(0, "Something is already on the stack 2 D:", 0, 0);
 	}
 	luaL_loadfile(gLua,"flowerthing.lua");
+	lua_pcall(gLua,0,LUA_MULTRET,0);
+	if(lua_gettop(gLua))
+	{
+		MessageBox(0, "Something is already on the stack 3 D:", 0, 0);
+	}
+	luaL_loadfile(gLua,"bosslaser.lua");
 	lua_pcall(gLua,0,LUA_MULTRET,0);
 	if(lua_gettop(gLua))
 	{

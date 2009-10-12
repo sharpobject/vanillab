@@ -1,5 +1,5 @@
 routines={};
-de=0.017453292519943295769236907684886;
+DEGREES=0.017453292519943295769236907684886;
 function wait(howlong)
 	if(howlong==0) then
 		return
@@ -14,8 +14,7 @@ function run()
 	end
 end
 function register(f)
-	local id=getNewest();
-	routines[id]=coroutine.create(f);
+	routines[getNewest()]=coroutine.create(f);
 end
 function fire(a,b,c)
 	cfire(a,b);
@@ -25,8 +24,7 @@ function fire(a,b,c)
 	register(c);
 end
 function cleanup()
-	local id=getID();
-	routines[id]=nil;
+	routines[getID()]=nil;
 end
 
 NO_SPRITE=-1;
