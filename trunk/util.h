@@ -14,7 +14,7 @@ extern "C"
 #define TEXTURE_SZ 64.0f
 
 #define PI 3.141592653589793238462643383279502f
-#define DEGREE 0.01745329251994329576923690768489f
+#define DEGREES 0.01745329251994329576923690768489f
 #define FULL_CIRCLE 6.283185307179586476925286766559f
 #define FACING_RIGHT 0.0f
 #define FACING_UP 1.5707963267948966192313216916398f
@@ -39,6 +39,11 @@ inline void getPolar(float x,float y,float &r, float &theta)
 {
 	r=sqrt(x*x+y*y);
 	theta=atan2(-y,x);
+}
+
+inline float getTheta(float x,float y)
+{
+	return atan2(-y,x);
 }
 
 inline void getCartesian(float &x,float &y,float r, float theta)

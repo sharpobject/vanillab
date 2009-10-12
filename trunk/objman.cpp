@@ -118,9 +118,9 @@ int ObjMan::add(Object &o)
 
 void ObjMan::makedude()
 {
-	Object o(0,0,FACING_DOWN,0.0f,NO_SPRITE,SPECIAL_OBJECT);
-	activeObject=add(o);
-	luaL_dostring(gLua,"register(flowerthing);");
+	Object o(256,256,FACING_DOWN,0.0f,NO_SPRITE,SPECIAL_OBJECT);
+	add(o);
+	luaL_dostring(gLua,"register(bossturret);");
 }
 
 int ObjMan::size()
