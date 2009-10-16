@@ -106,6 +106,7 @@ int changeSpeed(lua_State *L)
 		return 0;
 	}
 	gObjMan->changeSpeed(speed,turns);
+	return 0;
 }
 
 int changeDirection(lua_State *L)
@@ -124,6 +125,7 @@ int changeDirection(lua_State *L)
 		return 0;
 	}
 	gObjMan->changeDirection(direction,turns);
+	return 0;
 }
 
 int aim(lua_State *L)

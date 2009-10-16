@@ -101,43 +101,16 @@ bool Object::operator<(const Object & rhs)
 
 void Object::run()
 {
-	if(waitFrames)
+	if(waitFrames>0)
 	{
-//		MessageBox(0, "waitFrames nonzero", 0, 0);
 		waitFrames--;
 	}
-	if(waitFrames==0)
+	else if(waitFrames==0)
 	{
-//		MessageBox(0, "running", 0, 0);
 		lua_pushstring(gLua, "run");
 		lua_gettable(gLua, LUA_GLOBALSINDEX);
 		lua_pcall(gLua, 0, 0, 0);
 	}
-/*	switch(sprite)
-	{
-		case SPR_ARROW:
-			direction+=DEGREES;
-			if(age%9==0)
-			{
-				Object newguy(*this);
-				newguy.age=0;
-				newguy.speed=8.0f/3.0f;
-				newguy.sprite=SPR_MED_CIR_BULLET;
-				newguy.myclass=ENEMY_BULLET;
-			//	gObjMan->add(newguy);
-				int npaths=100;
-				for(int i=0;i<npaths;i++)
-				{
-					newguy.direction=FULL_CIRCLE*i/npaths;//+direction;
-					gObjMan->add(newguy);
-				}
-			}
-			break;
-		case SPR_MED_CIR_BULLET:
-			if(age>242)
-				dead=true;
-			break;
-	}*/
 	move();
 	age++;
 }
