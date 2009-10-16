@@ -21,6 +21,9 @@ public:
 	int size();
 
 	//A set of functions for manipulating the active object.
+	//Putting these all in the header was a really dumb idea.
+	//It seemed appealing because att he time I was only implementing the simple ones.
+	//Move them to the source file sometime.
 	float getX(){return objects[activeObject].x;}
 	float getY(){return objects[activeObject].y;}
 	float getTurn(){return (float)objects[activeObject].age;}
