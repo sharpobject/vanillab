@@ -23,6 +23,7 @@ private:
 private:
 	float x,y,direction,speed;
 	SpriteName sprite;
+	int health;
 	int age;
 	bool dead;
 

@@ -20,13 +20,51 @@ ObjMan::ObjMan()
 	rank=.5f;
 }
 
+void ObjMan::bucketsort(int n)
+{
+	for(int i=0;i<N_SPRITES;i++)
+		bucketsz[i]=0;
+	for(int i=0;i<n;i++)
+	{
+		SpriteName thesprite=objects[drawbuffer[i]].sprite;
+		buckets[thesprite][bucketsz[thesprite]++]=drawbuffer[i];
+	}
+	for(int i=0,bufferidx=0;i<N_SPRITES;i++)
+		for(int j=0;j<bucketsz[i];j++)
+			objects[buckets[i][j]].draw();
+}
+
 void ObjMan::draw(int idx)
 {
 	int myguy=heads[idx];
+	int drawbuffersz=0;
 	while(myguy!=-1)
 	{
-		objects[myguy].draw();
+		drawbuffer[drawbuffersz++]=myguy;//objects[myguy].draw();
 		myguy=objects[myguy].next;
+	}
+	bucketsort(drawbuffersz);
+}
+
+void ObjMan::checkDeadness(int idx)
+{
+	if(objects[activeObject].isDead())
+	{
+		lua_pushstring(gLua,"cleanup");
+		lua_gettable(gLua,LUA_GLOBALSINDEX);
+		lua_call(gLua,0,0);
+		//Link up the adjacent objects.
+		if(objects[activeObject].prev!=-1)
+			objects[objects[activeObject].prev].next=objects[activeObject].next;
+		if(objects[activeObject].next!=-1)
+			objects[objects[activeObject].next].prev=objects[activeObject].prev;
+		//Add my ID to the pool of available IDs.
+		freeIndices[nFreeIndices++]=activeObject;
+		//Adjust head and tail entries if necessary.
+		if(heads[idx]==activeObject)
+			heads[idx]=objects[activeObject].next;
+		if(tails[idx]==activeObject)
+			tails[idx]=objects[activeObject].prev;
 	}
 }
 
@@ -36,24 +74,47 @@ void ObjMan::run(int idx)
 	while(activeObject!=-1)
 	{
 		objects[activeObject].run();
-		if(objects[activeObject].isDead())
+		checkDeadness(idx);
+		activeObject=objects[activeObject].next;
+	}
+}
+
+void ObjMan::collision(ObjectClass a,ObjectClass b)
+{
+	int i=heads[a];
+	while(i!=-1)
+	{
+		float ix=objects[i].x;
+		float iy=objects[i].y;
+		float iradius=gSpriteCollisionRadius[objects[i].sprite];
+		int j=heads[b];
+		while(j!=-1)
 		{
-			lua_pushstring(gLua,"cleanup");
-			lua_gettable(gLua,LUA_GLOBALSINDEX);
-			lua_call(gLua,0,0);
-			//Link up the adjacent objects.
-			if(objects[activeObject].prev!=-1)
-				objects[objects[activeObject].prev].next=objects[activeObject].next;
-			if(objects[activeObject].next!=-1)
-				objects[objects[activeObject].next].prev=objects[activeObject].prev;
-			//Add my ID to the pool of available IDs.
-			freeIndices[nFreeIndices++]=activeObject;
-			//Adjust head and tail entries if necessary.
-			if(heads[idx]==activeObject)
-				heads[idx]=objects[activeObject].next;
-			if(tails[idx]==activeObject)
-				tails[idx]=objects[activeObject].prev;
+			float dx=objects[j].x-ix;
+			float dy=objects[j].y-iy;
+			float jradius=gSpriteCollisionRadius[objects[j].sprite];
+			if(dx*dx+dy*dy<iradius*iradius+2*iradius*jradius+jradius*jradius)
+			{
+				int damage=min(objects[j].health,objects[i].health);
+				objects[j].health-=damage;
+				objects[i].health-=damage;
+				if(objects[j].health==0)objects[j].dead=true;
+				if(objects[i].health==0)objects[i].dead=true;
+			}
+			j=objects[j].next;
 		}
+		i=objects[i].next;
+	}
+	activeObject=heads[a];
+	while(activeObject!=-1)
+	{
+		checkDeadness(a);
+		activeObject=objects[activeObject].next;
+	}
+	activeObject=heads[b];
+	while(activeObject!=-1)
+	{
+		checkDeadness(b);
 		activeObject=objects[activeObject].next;
 	}
 }
@@ -82,6 +143,9 @@ void ObjMan::run(unsigned char* input)
 	}
 	for(int i=0;i<N_OBJECT_CLASSES;i++)
 		run(i);
+	collision(ENEMY_BULLET,PLAYER);
+	collision(PLAYER,ENEMY);
+	collision(PLAYER_BULLET,ENEMY);
 }
 
 void ObjMan::draw()
@@ -118,7 +182,7 @@ int ObjMan::add(Object &o)
 
 void ObjMan::makedude()
 {
-	Object o(256,256,FACING_DOWN,0.0f,NO_SPRITE,SPECIAL_OBJECT);
+	Object o(256,256,FACING_DOWN,0.0f,SPR_APPLE,ENEMY);
 	add(o);
 	luaL_dostring(gLua,"register(bossturret);");
 }

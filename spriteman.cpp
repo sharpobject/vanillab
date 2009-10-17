@@ -59,6 +59,8 @@ void SpriteMan::draw(SpriteName spritename, float x, float y, float xscale, floa
 
 void SpriteMan::drawFPS(string s)
 {
+	draw(SPR_BLACK,768,0,256,256,0,D3DXCOLOR(0,0,0,1),FALSE);
+
 	D3DXMATRIX mat;
 	for(int i=0;i<4;i++)
 		for(int j=0;j<4;j++)

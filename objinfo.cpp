@@ -16,10 +16,10 @@ ObjInfo::ObjInfo(const ObjInfo& a)
 	sprite=a.sprite;
 	myclass=a.myclass;
 }
-ObjInfo::ObjInfo(SpriteName a,ObjectClass b)
+ObjInfo::ObjInfo(SpriteName sn,ObjectClass oc)
 {
-	sprite=a;
-	myclass=b;
+	sprite=sn;
+	myclass=oc;
 }
 ObjInfo& ObjInfo::operator=(const ObjInfo& a)
 {

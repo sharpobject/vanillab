@@ -2,8 +2,8 @@ function bossturret()
 	setChildType(ENEMY_BULLET)
 	setChildSprite(SPR_ARROW)
 	while true do
-		fire(5,aim(),bosslaser)
-		wait(10)
+		fire(5,aim(),bomb)
+		wait(300)
 	end
 end
 function bosslaser()
