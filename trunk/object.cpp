@@ -19,6 +19,7 @@ Object::Object()
 	myclass=SPECIAL_OBJECT;
 	age=0;
 	dead=true;
+	health=1;
 	yAccel=xAccel=accel=rotation=0.0f;
 	yAccelTurns=xAccelTurns=accelTurns=rotationTurns=0;
 	waitFrames=0;
@@ -37,6 +38,7 @@ Object::Object(float px,float py, float pdirection, float pspeed, SpriteName psp
 	myclass=pclass;
 	age=0;
 	dead=false;
+	health=1;
 	yAccel=xAccel=accel=rotation=0.0f;
 	yAccelTurns=xAccelTurns=accelTurns=rotationTurns=0;
 	waitFrames=0;
@@ -55,6 +57,7 @@ Object::Object(const Object &orig)
 	myclass=orig.myclass;
 	age=orig.age;
 	dead=orig.dead;
+	health=orig.health;
 	yAccel=orig.yAccel;
 	xAccel=orig.xAccel;
 	accel=orig.accel;
@@ -79,6 +82,7 @@ Object& Object::operator=(const Object &rhs)
 	myclass=rhs.myclass;
 	age=rhs.age;
 	dead=rhs.dead;
+	health=rhs.health;
 	yAccel=rhs.yAccel;
 	xAccel=rhs.xAccel;
 	accel=rhs.accel;
@@ -131,7 +135,7 @@ void Object::move()
 	getCartesian(dx,dy,SPEED_SCALE*speed,direction);
 	x+=dx;
 	y+=dy;
-	if(x<-100||y<-100||x>gWidth+100||y>gHeight+100)
+	if(x<-100||y<-100||x>gWidth+100||y>768+100)
 		dead=true;
 }
 
@@ -140,7 +144,7 @@ void Object::draw()
 	if(x<-100||y<-100||x>gWidth+100||y>gHeight+100)
 		return;
 	if(sprite>NO_SPRITE)
-		gSpriteMan->draw(sprite,x,y,25/TEXTURE_SZ,25/TEXTURE_SZ,-direction+PI/2);
+		gSpriteMan->draw(sprite,x,y,gSpriteScales[sprite],gSpriteScales[sprite],(myclass==ENEMY_BULLET||myclass==PLAYER_BULLET)?(-direction+PI/2):0);
 }
 
 bool Object::isDead()

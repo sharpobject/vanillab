@@ -85,6 +85,9 @@ public:
 private:
 	void run(int);
 	void draw(int);
+	void bucketsort(int);
+	void collision(ObjectClass,ObjectClass);
+	void checkDeadness(int idx);
 
 
 	//This is an array in which linked lists will exist.
@@ -92,6 +95,12 @@ private:
 	//These are the available entries in the above array.  As a stack.
 	int freeIndices[MAX_N_OBJECTS];
 	int nFreeIndices;
+	
+	//Stuff for sorting objects to be drawn.
+	int drawbuffer[MAX_N_OBJECTS];
+	int buckets[N_SPRITES][MAX_N_OBJECTS];
+	int bucketsz[N_SPRITES];
+
 	//These are pointers to the heads of awesome linked lists of awesome.
 	int heads[N_OBJECT_CLASSES],tails[N_OBJECT_CLASSES];
 

@@ -32,6 +32,7 @@ bool Display(int time,int prevtime)
 {
 	if( gDevice )
 	{
+
 		if(FAILED(gDevice->TestCooperativeLevel()))
 		{
 //			MessageBox(0,"One day you won't have your naughty bits any more.",0,0);
